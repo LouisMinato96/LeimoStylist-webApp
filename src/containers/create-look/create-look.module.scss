@@ -1,0 +1,85 @@
+.createLook-box-ctn{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    .header-ctn{
+        width: 100%;
+        height: 60px;
+    }
+    .main-ctn{
+        width: 100%;
+        height: calc( 100% - 60px );
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;        
+
+        .styling-requirement-ctn{
+            width: 300px;
+            height: 100%;
+            padding: 20px 0px ;
+
+        }
+        .styling-editor-ctn{
+            width: calc( 100% - 300px );
+            height: 100%;
+
+            display: flex;
+            flex-direction: row;
+            justify-content: center;  
+
+            .editor-box{
+                width: calc( 100% - 350px );
+                height: 100%;
+
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+
+                .body-editor-ctn{
+                    width: 100px;
+                    height: 100%;
+
+                    border: 1px solid red;
+                }
+                .canvas-editor-ctn{
+                    width: calc( 100% - 100px );
+                    height: 100%;
+
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+
+                    border: 1px solid red;
+
+                    .canvas-ctn{
+                        width: 480px;
+                        height: 690px;
+
+                        background-size: contain;
+                    }
+                }
+                .layer-editor-ctn{
+                    width: 100px;
+                    height: 100%;
+
+                    border: 1px solid red;
+                }
+            }
+            .wardrobe-box{
+                width: 350px ;
+                height: 100%;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+
+                border: 1px solid blue;
+            }
+        }
+    }
+}
