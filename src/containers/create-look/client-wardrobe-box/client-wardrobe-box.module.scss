@@ -1,0 +1,32 @@
+.wardrobe-category{
+    width: 100%;
+    padding: 10px;
+
+    .category-title{
+        width: 100%;
+
+        span{
+            font-size: 0.9rem;
+            margin-left: 5px;
+            font-weight: 500;
+            color: #000000;
+        }
+    }
+    .category-item-ctn{
+        width: 100%;
+        margin-top: 5px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+
+        .category-item{
+            width: 70px;
+            height: 70px;
+            margin: 5px;
+            border-radius: 10px;
+            border: 1px solid #d4d4d4;
+        }
+    }
+}

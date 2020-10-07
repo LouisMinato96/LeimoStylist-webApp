@@ -39,36 +39,6 @@
                 flex-direction: row;
                 justify-content: center;
 
-                .body-editor-ctn{
-                    width: 100px;
-                    height: 100%;
-
-                    border: 1px solid red;
-                }
-                .canvas-editor-ctn{
-                    width: calc( 100% - 100px );
-                    height: 100%;
-
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: center;
-                    align-items: center;
-
-                    border: 1px solid red;
-
-                    .canvas-ctn{
-                        width: 480px;
-                        height: 690px;
-
-                        background-size: contain;
-                    }
-                }
-                .layer-editor-ctn{
-                    width: 100px;
-                    height: 100%;
-
-                    border: 1px solid red;
-                }
             }
             .wardrobe-box{
                 width: 350px ;
@@ -78,7 +48,7 @@
                 flex-direction: column;
                 justify-content: flex-start;
 
-                border: 1px solid blue;
+                border: 1px solid #707070;
             }
         }
     }

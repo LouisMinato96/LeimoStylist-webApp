@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import classes from './create-look.module.scss';
 import CreateLookHeader from './../../components/create-look/createLook-header';
 import StylingRequirement from './styling-requirement/styling-requirement';
-import canvasoutlineImage from './../../assets/images/create_looks_outline.png';
+import StylistEditorBox from './stylist-editor-box/stylist-editor-box';
+import ClientWardrobe from './client-wardrobe-box/client-wardrobe-box';
 
 class createLook extends Component {
     render() {
@@ -18,16 +19,10 @@ class createLook extends Component {
                     </div>
                     <div className={classes['styling-editor-ctn']} >
                         <div className={classes['editor-box']} >
-                            <div className={classes['body-editor-ctn']} ></div>
-                            <div className={classes['canvas-editor-ctn']} >
-                                <div className={classes['canvas-ctn']} 
-                                    style={{ backgroundImage: `url(${canvasoutlineImage})` }}
-                                ></div>
-                            </div>
-                            <div className={classes['layer-editor-ctn']} ></div>
+                            <StylistEditorBox />
                         </div>
                         <div className={classes['wardrobe-box']} >
-                            
+                            <ClientWardrobe />
                         </div>
                     </div>
                 </div>
