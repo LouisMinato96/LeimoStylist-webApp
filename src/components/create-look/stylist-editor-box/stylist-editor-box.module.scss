@@ -58,13 +58,64 @@
         // 640 x 920
         width: 420px;
         height: 604px;
+        position: relative;
 
         background-size: contain;
+
+        .size-rotation-controller {
+            width: 20px;
+            height: 50px;
+
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+
+            position: absolute;
+            z-index: 1000;
+
+            .size-controller-btn{
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: #FF5A5F;
+                padding: 5px;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .rotation-controller-btn{
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: #FF5A5F;
+                padding: 5px;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+        }
     }
 }
 .layer-editor-ctn{
     width: 100px;
     height: 100%;
 
-    border: 1px solid rgba( red , 0.2 );
+    // border: 1px solid rgba( red , 0.2 );
+
+    .category-item{
+        width: 70px;
+        height: 70px;
+        margin: 5px;
+        border-radius: 10px;
+        border: 1px solid #d4d4d4;        
+        overflow: hidden;
+
+        img {
+            width: 100%;
+        }
+    }
 }
