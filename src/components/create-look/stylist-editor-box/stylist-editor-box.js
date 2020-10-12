@@ -5,8 +5,6 @@ import Aux from './../../../HOC/Auxilary/Auxilary';
 import CollageCanvas from './../CollageCanvas/CollageCanvas';
 import canvasoutlineImage from './../../../assets/images/create_looks_outline.png';
 import lipsticImage from './../../../assets/images/beauty.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUndo, faExpand } from '@fortawesome/free-solid-svg-icons';
 
 
 const StylistEditorBox = (props) => {
@@ -30,7 +28,7 @@ const StylistEditorBox = (props) => {
             const itemDetail = item.details;
 
             const layerClasses = [classes.layer];
-            if ( props.selectedCanvasIndex === idx ) {
+            if (props.selectedCanvasIndex === idx) {
                 layerClasses.push(classes.selectedLayer);
             }
 
@@ -38,11 +36,11 @@ const StylistEditorBox = (props) => {
                 <CollageCanvas
                     key={`${itemDetail['_id']}`}
                     canindex={idx}
-                    canImg={ item }
+                    canImg={item}
                     setPosition={(posX, posY) => { props.setCanvasImagePosition(idx, posX, posY); }}
                     canWidth={canvasDimension.width}
                     canHeight={canvasDimension.height}
-                    selectedIndex={ props.selectedCanvasIndex }
+                    selectedIndex={props.selectedCanvasIndex}
                 />
             );
         }
@@ -60,6 +58,35 @@ const StylistEditorBox = (props) => {
             );
         }
     );
+
+    let szController = null;
+    if ( props.selectedCanvasIndex >= 0 ) {
+        const activeItem = props.itemsOnCanvas[ props.selectedCanvasIndex ];
+        szController = (
+            <div className={classes['size-rotation-controller']} >
+                <div className={classes['size-controller-btn']} >
+                    <label >Scale:</label>
+                    <input
+                        type="range"
+                        min="5"
+                        max="50"
+                        value={activeItem.dimentions['_s']}
+                        onChange={(event) => { props.setCanvasImageScale(props.selectedCanvasIndex, event.target.value) }}
+                    />
+                </div>
+                <div className={classes['rotation-controller-btn']} >
+                    <label >Rotation:</label>
+                    <input
+                        type="range"
+                        min="0"
+                        max="355"
+                        value={activeItem.dimentions['_r']}
+                        onChange={(event) => { props.setCanvasImageRotation(props.selectedCanvasIndex, event.target.value) }}
+                    />
+                </div>
+            </div>
+        );
+    }
 
     return (
         <Aux>
@@ -94,16 +121,8 @@ const StylistEditorBox = (props) => {
                     ref={CollageCanvasRef}
                 >
                     { CanvasImages }
-                    <div id="szController" className={classes['size-rotation-controller']} 
-                        style={ props.szControllerPosition }
-                    >
-                        <div className={classes['size-controller-btn']} >
-                            <FontAwesomeIcon icon={ faExpand } color='#ffffff' />
-                        </div>
-                        <div className={classes['rotation-controller-btn']} >
-                            <FontAwesomeIcon icon={ faUndo } color='#ffffff' />
-                        </div>
-                    </div>
+                    { szController }
+
                 </div>
             </div>
             <div className={classes['layer-editor-ctn']} >

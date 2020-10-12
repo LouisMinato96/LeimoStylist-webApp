@@ -13,15 +13,14 @@ class createLook extends Component {
         receivedWardrobe: false,
         wardrobe: null,
         itemsOnCanvas: [],
-        selectedCanvasIndex: -1,
-        szControllerPosition: null
+        selectedCanvasIndex: -1
     }
 
     getCreatLook = () => {
         const URLcreatelook = `https://whispering-lake-75400.herokuapp.com/sHome/CreateLook/5f814135abf4fd00178fc91b`;
         const config = {
             headers: {
-                token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2M2NWE5MzUxOTJkMjlmMGYzODAyZCIsInR5cGUiOiJzdHlsaXN0IiwiaWF0IjoxNjAyMzUxMDU5LCJleHAiOjE2MDIzNTQ2NTl9.F0lVutdY5MIhSj3dHx2zKXXW4XYgKx3SegwjWeyVI5w`
+                token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2M2NWE5MzUxOTJkMjlmMGYzODAyZCIsInR5cGUiOiJzdHlsaXN0IiwiaWF0IjoxNjAyNTIwOTAzLCJleHAiOjE2MDI1MjQ1MDN9.sE2vcOkz7QZekeAQgXJ8ik73pKlDcisOL7J-i0XHSSo`
             }
         };
         axios.get(URLcreatelook, config)
@@ -54,17 +53,7 @@ class createLook extends Component {
     }
 
     selectedCanvasIndexSetState = (idx) => {
-        const updatedItemOnCanvasAtIDX = this.state.itemsOnCanvas[idx];
-        const szControllerPosX = updatedItemOnCanvasAtIDX.dimentions['_y'] - 10 ;
-        const szControllerPosY = updatedItemOnCanvasAtIDX.dimentions['_x'] - 10 ;
-        const updated_szControllerPosition = {
-            top: `${ szControllerPosX }px`,
-            left: `${ szControllerPosY }px`
-        };
-        this.setState({ 
-            selectedCanvasIndex: idx ,
-            szControllerPosition: updated_szControllerPosition
-        });
+        this.setState({ selectedCanvasIndex: idx });
     }
 
     componentDidMount() {
@@ -87,24 +76,15 @@ class createLook extends Component {
         updatedItemsOnCanvas.push({
             details: itemObj,
             dimentions: {
-                _x: (50 * idx),
-                _y: (50 * idx),
-                _s: 1,
+                _x: (50 * idx) + 100,
+                _y: (50 * idx) + 100,
+                _s: 10,
                 _r: 0
             }
         });
-        const szControllerPosX = (50 * idx) - 10 ;
-        const szControllerPosY = (50 * idx) - 10 ;
-        // console.log( szControllerPosX, szControllerPosY );
-
-        const updated_szControllerPosition = {
-            top: `${ szControllerPosX }px`,
-            left: `${ szControllerPosY }px`
-        };
         this.setState({ 
             selectedCanvasIndex: idx, 
-            itemsOnCanvas: updatedItemsOnCanvas ,
-            szControllerPosition: updated_szControllerPosition
+            itemsOnCanvas: updatedItemsOnCanvas 
         });
     }
 
@@ -123,18 +103,46 @@ class createLook extends Component {
         const updatedItemOnCanvas = [...this.state.itemsOnCanvas];
         updatedItemOnCanvas[idx] = updatedItemOnCanvasAtIDX;
 
-        const szControllerPosX = updatedItemOnCanvasAtIDX.dimentions['_y'] - 10 ;
-        const szControllerPosY = updatedItemOnCanvasAtIDX.dimentions['_x'] - 10 ;
-        // console.log( szControllerPosX, szControllerPosY );
+        this.setState({ 
+            itemsOnCanvas: updatedItemOnCanvas 
+        });
+    }
 
-        const updated_szControllerPosition = {
-            top: `${ szControllerPosX }px`,
-            left: `${ szControllerPosY }px`
+    setCanvasImageScale = ( idx, scale ) => {
+        console.log( 'Scale', idx, scale );
+        const oldItemOnCanvasAtIDX = this.state.itemsOnCanvas[idx];
+        const updatedItemOnCanvasAtIDX = {
+            details: oldItemOnCanvasAtIDX.details,
+            dimentions: {
+                ...oldItemOnCanvasAtIDX.dimentions,
+                _s: scale 
+            }
         };
 
+        const updatedItemOnCanvas = [...this.state.itemsOnCanvas];
+        updatedItemOnCanvas[idx] = updatedItemOnCanvasAtIDX;
+
         this.setState({ 
-            itemsOnCanvas: updatedItemOnCanvas ,
-            szControllerPosition: updated_szControllerPosition
+            itemsOnCanvas: updatedItemOnCanvas 
+        });
+    }
+
+    setCanvasImageRotation = (idx, rotation ) => {
+
+        const oldItemOnCanvasAtIDX = this.state.itemsOnCanvas[idx];
+        const updatedItemOnCanvasAtIDX = {
+            details: oldItemOnCanvasAtIDX.details,
+            dimentions: {
+                ...oldItemOnCanvasAtIDX.dimentions,
+                _r: rotation
+            }
+        };
+
+        const updatedItemOnCanvas = [...this.state.itemsOnCanvas];
+        updatedItemOnCanvas[idx] = updatedItemOnCanvasAtIDX;
+
+        this.setState({ 
+            itemsOnCanvas: updatedItemOnCanvas 
         });
     }
 
@@ -156,7 +164,8 @@ class createLook extends Component {
                                 setCanvasImagePosition={this.setCanvasImagePosition}
                                 selectedCanvasIndexSetState={this.selectedCanvasIndexSetState}
                                 selectedCanvasIndex={this.state.selectedCanvasIndex}
-                                szControllerPosition={ this.state.szControllerPosition }
+                                setCanvasImageScale={ this.setCanvasImageScale }
+                                setCanvasImageRotation={ this.setCanvasImageRotation }
                             />
                         </div>
                         <div className={classes['wardrobe-box']} >
