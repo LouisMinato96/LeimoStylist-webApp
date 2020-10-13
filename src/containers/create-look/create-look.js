@@ -20,7 +20,7 @@ class createLook extends Component {
         const URLcreatelook = `https://whispering-lake-75400.herokuapp.com/sHome/CreateLook/5f814135abf4fd00178fc91b`;
         const config = {
             headers: {
-                token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2M2NWE5MzUxOTJkMjlmMGYzODAyZCIsInR5cGUiOiJzdHlsaXN0IiwiaWF0IjoxNjAyNTIwOTAzLCJleHAiOjE2MDI1MjQ1MDN9.sE2vcOkz7QZekeAQgXJ8ik73pKlDcisOL7J-i0XHSSo`
+                token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2M2NWE5MzUxOTJkMjlmMGYzODAyZCIsInR5cGUiOiJzdHlsaXN0IiwiaWF0IjoxNjAyNTkwMzY5LCJleHAiOjE2MDI1OTM5Njl9.o68sKVrKoCQycO0WxmtBjX5K1Y3u9vTL9fzenSM6Fzg`
             }
         };
         axios.get(URLcreatelook, config)
