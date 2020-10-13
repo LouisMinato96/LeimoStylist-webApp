@@ -5,6 +5,8 @@ import Aux from './../../../HOC/Auxilary/Auxilary';
 import CollageCanvas from './../CollageCanvas/CollageCanvas';
 import canvasoutlineImage from './../../../assets/images/create_looks_outline.png';
 import lipsticImage from './../../../assets/images/beauty.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMinus } from '@fortawesome/free-solid-svg-icons';
 
 
 const StylistEditorBox = (props) => {
@@ -54,13 +56,18 @@ const StylistEditorBox = (props) => {
                     onClick={() => { props.selectedCanvasIndexSetState(idx); }}
                 >
                     <img src={item.details.image} alt='' />
+                    <div className={ classes['remove-item'] } 
+                        onClick={ () => { props.removeSelectedCanvasItem(idx) } }
+                    >
+                        <FontAwesomeIcon icon={faMinus} color="#ffffff" />
+                    </div>
                 </div>
             );
         }
     );
 
     let szController = null;
-    if ( props.selectedCanvasIndex >= 0 ) {
+    if ( props.itemsOnCanvas.length > props.selectedCanvasIndex && props.selectedCanvasIndex >= 0 ) {
         const activeItem = props.itemsOnCanvas[ props.selectedCanvasIndex ];
         szController = (
             <div className={classes['size-rotation-controller']} >
@@ -113,7 +120,6 @@ const StylistEditorBox = (props) => {
                     </div>
                 </div>
 
-
             </div>
             <div className={classes['canvas-editor-ctn']} >
                 <div className={classes['canvas-ctn']}
@@ -122,6 +128,12 @@ const StylistEditorBox = (props) => {
                 >
                     { CanvasImages }
                     { szController }
+
+                    <div className={classes['save-look']} 
+                        onClick={props.saveLook}
+                    >
+                        <span>SAVE LOOK</span>
+                    </div>
 
                 </div>
             </div>

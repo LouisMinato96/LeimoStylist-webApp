@@ -16,11 +16,13 @@ class createLook extends Component {
         selectedCanvasIndex: -1
     }
 
+    loginToken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2M2NWE5MzUxOTJkMjlmMGYzODAyZCIsInR5cGUiOiJzdHlsaXN0IiwiaWF0IjoxNjAyNjAxOTA2LCJleHAiOjE2MDUxOTM5MDZ9.kfdAJ8vvw3ABxJ41kOQE7T4WzHo9wBgmU_vMj4bwoMY`;
+
     getCreatLook = () => {
-        const URLcreatelook = `https://whispering-lake-75400.herokuapp.com/sHome/CreateLook/5f814135abf4fd00178fc91b`;
+        const URLcreatelook = `https://whispering-lake-75400.herokuapp.com/sHome/CreateLook/5f85c3c255b4d20017de90fb`;
         const config = {
             headers: {
-                token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2M2NWE5MzUxOTJkMjlmMGYzODAyZCIsInR5cGUiOiJzdHlsaXN0IiwiaWF0IjoxNjAyNTkwMzY5LCJleHAiOjE2MDI1OTM5Njl9.o68sKVrKoCQycO0WxmtBjX5K1Y3u9vTL9fzenSM6Fzg`
+                token: this.loginToken
             }
         };
         axios.get(URLcreatelook, config)
@@ -28,6 +30,7 @@ class createLook extends Component {
                 res => {
 
                     const resWardrobe = res.data.wardrobe;
+                    const resItemsOnCanvas = []; // res.data.look['style_items'];
                     const WardrobeObj = {};
                     Object.keys(resWardrobe).map(
                         (key, idx) => {
@@ -44,7 +47,43 @@ class createLook extends Component {
                     );
 
                     console.log('wardrobe', WardrobeObj);
-                    this.setState({ receivedWardrobe: true, wardrobe: WardrobeObj });
+                    this.setState({ 
+                        receivedWardrobe: true, wardrobe: WardrobeObj ,
+                        itemsOnCanvas: resItemsOnCanvas
+                    });
+                },
+                err => {
+                    console.error(err);
+                }
+            );
+    }
+
+    saveLook = () => {
+        const URLcreatelook = `https://whispering-lake-75400.herokuapp.com/sHome/CreateLook/5f85c3c255b4d20017de90fb`;
+        const config = {
+            headers: {
+                token: this.loginToken
+            }
+        };
+        
+        const body = {
+            style_items: this.state.itemsOnCanvas.map(
+                ( item, idx ) => {
+                    return {
+                        id : item.details['_id'],
+                        dx: item.dimentions['_x'],
+                        dy: item.dimentions['_y'],
+                        scale: item.dimentions['_s'],
+                        Rotation: item.dimentions['_r']
+                    };
+                }
+            )
+        };
+        console.log( body );
+        axios.patch(URLcreatelook, body, config)
+            .then(
+                res => {
+                    console.log('canvas-items', res);
                 },
                 err => {
                     console.error(err);
@@ -82,9 +121,9 @@ class createLook extends Component {
                 _r: 0
             }
         });
-        this.setState({ 
-            selectedCanvasIndex: idx, 
-            itemsOnCanvas: updatedItemsOnCanvas 
+        this.setState({
+            selectedCanvasIndex: idx,
+            itemsOnCanvas: updatedItemsOnCanvas
         });
     }
 
@@ -103,31 +142,31 @@ class createLook extends Component {
         const updatedItemOnCanvas = [...this.state.itemsOnCanvas];
         updatedItemOnCanvas[idx] = updatedItemOnCanvasAtIDX;
 
-        this.setState({ 
-            itemsOnCanvas: updatedItemOnCanvas 
+        this.setState({
+            itemsOnCanvas: updatedItemOnCanvas
         });
     }
 
-    setCanvasImageScale = ( idx, scale ) => {
-        console.log( 'Scale', idx, scale );
+    setCanvasImageScale = (idx, scale) => {
+        console.log('Scale', idx, scale);
         const oldItemOnCanvasAtIDX = this.state.itemsOnCanvas[idx];
         const updatedItemOnCanvasAtIDX = {
             details: oldItemOnCanvasAtIDX.details,
             dimentions: {
                 ...oldItemOnCanvasAtIDX.dimentions,
-                _s: scale 
+                _s: scale
             }
         };
 
         const updatedItemOnCanvas = [...this.state.itemsOnCanvas];
         updatedItemOnCanvas[idx] = updatedItemOnCanvasAtIDX;
 
-        this.setState({ 
-            itemsOnCanvas: updatedItemOnCanvas 
+        this.setState({
+            itemsOnCanvas: updatedItemOnCanvas
         });
     }
 
-    setCanvasImageRotation = (idx, rotation ) => {
+    setCanvasImageRotation = (idx, rotation) => {
 
         const oldItemOnCanvasAtIDX = this.state.itemsOnCanvas[idx];
         const updatedItemOnCanvasAtIDX = {
@@ -141,8 +180,18 @@ class createLook extends Component {
         const updatedItemOnCanvas = [...this.state.itemsOnCanvas];
         updatedItemOnCanvas[idx] = updatedItemOnCanvasAtIDX;
 
-        this.setState({ 
-            itemsOnCanvas: updatedItemOnCanvas 
+        this.setState({
+            itemsOnCanvas: updatedItemOnCanvas
+        });
+    }
+
+    removeSelectedCanvasItem = (idx) => {
+        const updatedItemsOnCanvas = [...this.state.itemsOnCanvas];
+        updatedItemsOnCanvas.splice( idx, 1 );
+        const updatedSlectedCanvasIndex = updatedItemsOnCanvas.length > 0 ? updatedItemsOnCanvas.length - 1 : -1 ; 
+        this.setState({
+            itemsOnCanvas: updatedItemsOnCanvas,
+            selectedCanvasIndex: updatedSlectedCanvasIndex
         });
     }
 
@@ -164,8 +213,10 @@ class createLook extends Component {
                                 setCanvasImagePosition={this.setCanvasImagePosition}
                                 selectedCanvasIndexSetState={this.selectedCanvasIndexSetState}
                                 selectedCanvasIndex={this.state.selectedCanvasIndex}
-                                setCanvasImageScale={ this.setCanvasImageScale }
-                                setCanvasImageRotation={ this.setCanvasImageRotation }
+                                setCanvasImageScale={this.setCanvasImageScale}
+                                setCanvasImageRotation={this.setCanvasImageRotation}
+                                removeSelectedCanvasItem={this.removeSelectedCanvasItem}
+                                saveLook={ this.saveLook }
                             />
                         </div>
                         <div className={classes['wardrobe-box']} >

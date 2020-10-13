@@ -126,6 +126,28 @@
                 }
             }
         }
+        .save-look{
+            width: 120px;
+            height: 30px;
+            border-radius: 5px;
+            background-color: #FF5A5F;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 2000;
+
+            position: absolute;
+            bottom: 10px;
+            right: 0px;
+
+            span{
+                font-size: 0.8rem;
+                font-weight: bold;
+                color: #ffffff;                
+            }
+        }
     }
 }
 .layer-editor-ctn{
@@ -135,15 +157,30 @@
     // border: 1px solid rgba( red , 0.2 );
 
     .category-item{
-        width: 70px;
-        height: 70px;
+        width: 75px;
+        height: 100px;
         margin: 5px;
         border-radius: 10px;
         border: 1px solid #d4d4d4;        
         overflow: hidden;
+        position: relative;
 
         img {
             width: 100%;
+        }
+        .remove-item {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            padding: 5px;
+            background-color: #FF5A5F;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
     }
 }

@@ -5,6 +5,7 @@ import React, { useEffect, createRef } from 'react';
 const CollageCanvas = (props) => {
 
   const canvasRef = createRef();
+  const IMAGE_WIDTH = 1080;
 
   const drawImageOnCanvas = (posX, posY) => {
 
@@ -20,12 +21,12 @@ const CollageCanvas = (props) => {
       props.canImg.details.imageDOM,
       0,
       0,
-      1080,
-      1080,
+      IMAGE_WIDTH,
+      (IMAGE_WIDTH*4/3),
       (-50 * imageScale),
-      (-50 * imageScale),
+      ((-50*4/3) * imageScale),
       (100 * imageScale),
-      (100 * imageScale)
+      ((100*4/3) * imageScale)
     );
     ctx.rotate( (-Math.PI / 180) * props.canImg.dimentions['_r']);
     ctx.translate( -posX, -posY);
@@ -45,20 +46,20 @@ const CollageCanvas = (props) => {
       props.canImg.details.imageDOM,
       0,
       0,
-      1080,
-      1080,
+      IMAGE_WIDTH,
+      (IMAGE_WIDTH*4/3),
       (-50 * imageScale),
-      (-50 * imageScale),
+      ((-50*4/3) * imageScale),
       (100 * imageScale),
-      (100 * imageScale)
+      ((100*4/3) * imageScale)
     );
     ctx.strokeStyle = '#FF5A5F';
     ctx.lineWidth = 4;
     ctx.strokeRect(
       (-50 * imageScale),
-      (-50 * imageScale),
+      ((-50*4/3) * imageScale),
       (100 * imageScale),
-      (100 * imageScale)
+      ((100*4/3) * imageScale)
     );
     ctx.rotate( (-Math.PI / 180) * props.canImg.dimentions['_r']);
     ctx.translate( -posX, -posY);
